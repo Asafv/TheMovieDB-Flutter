@@ -1,26 +1,26 @@
 class Network {
   int id;
-  String logo_path;
+  String logoPath;
   String name;
-  String origin_country;
+  String originCountry;
 
-  Network({this.id, this.logo_path, this.name, this.origin_country});
+  Network({this.id, this.logoPath, this.name, this.originCountry});
 
   factory Network.fromJson(Map<String, dynamic> json) {
     return Network(
       id: json['id'],
-      logo_path: json['logo_path'],
+      logoPath: json['logo_path'],
       name: json['name'],
-      origin_country: json['origin_country'],
+      originCountry: json['origin_country'],
     );
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = this.id;
-    data['logo_path'] = this.logo_path;
+    data['logo_path'] = this.logoPath;
     data['name'] = this.name;
-    data['origin_country'] = this.origin_country;
+    data['origin_country'] = this.originCountry;
     return data;
   }
 }

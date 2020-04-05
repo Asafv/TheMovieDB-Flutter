@@ -1,0 +1,3 @@
+class DetailsBloc {
+  void dispose() {}
+}
