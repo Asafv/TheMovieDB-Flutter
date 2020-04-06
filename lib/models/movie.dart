@@ -1,11 +1,12 @@
 import 'package:tmdbflutter/api/tmdb_api.dart';
 import 'package:tmdbflutter/models/collection.dart';
 import 'package:tmdbflutter/models/genre.dart';
+import 'package:tmdbflutter/models/item_type.dart';
 import 'package:tmdbflutter/models/network.dart';
 import 'package:tmdbflutter/models/production_country.dart';
 import 'package:tmdbflutter/models/spoken_language.dart';
 
-class Movie {
+class Movie implements ItemType {
   bool adult;
   String backdropPath;
   Object belongsToCollection;
@@ -152,6 +153,7 @@ class Movie {
 
   Movie.withError(String errorValue) : error = errorValue;
 
+  @override
   String getPosterUrl(ImageSizes size) {
     return TmdbApi().getImageUrl(this.posterPath, size: size);
   }

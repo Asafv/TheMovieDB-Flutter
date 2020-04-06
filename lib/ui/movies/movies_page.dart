@@ -1,10 +1,11 @@
 import 'package:fimber/fimber.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:tmdbflutter/models/item_type.dart';
 import 'package:tmdbflutter/models/movie.dart';
 import 'package:tmdbflutter/ui/details/details_page.dart';
 import 'package:tmdbflutter/ui/movies/movies_bloc.dart';
-import 'package:tmdbflutter/ui/widgets/movies_list.dart';
+import 'package:tmdbflutter/ui/widgets/items_list.dart';
 import 'package:tmdbflutter/utils/app_navigator.dart';
 
 class MoviesPage extends StatefulWidget {
@@ -41,7 +42,6 @@ class _MoviesPage extends State<MoviesPage> {
     _moviesList = _initMoviesList();
 
     return Scaffold(
-      backgroundColor: Colors.black,
       body: ListView(
         shrinkWrap: true,
         scrollDirection: Axis.vertical,
@@ -55,35 +55,35 @@ class _MoviesPage extends State<MoviesPage> {
     list.add(Container(
       height: 20,
     ));
-    list.add(MoviesList(
+    list.add(ItemsList(
 //      itemWidth: itemWidth * 0.85,
       listTitle: "Now Playing",
-      moviesStream: _moviesBloc.nowPlayingMovies,
-      onMovieClicked: (Movie m) => _onClick(m),
+      itemsStream: _moviesBloc.nowPlayingMovies,
+      onItemClicked: (ItemType item) => _onClick((item as Movie)),
     ));
     list.add(Container(
       height: 20,
     ));
-    list.add(MoviesList(
+    list.add(ItemsList(
       listTitle: "Popular",
-      moviesStream: _moviesBloc.popularMovies,
-      onMovieClicked: (Movie m) => _onClick(m),
+      itemsStream: _moviesBloc.popularMovies,
+      onItemClicked: (ItemType item) => _onClick((item as Movie)),
     ));
     list.add(Container(
       height: 20,
     ));
-    list.add(MoviesList(
+    list.add(ItemsList(
       listTitle: "Upcoming",
-      moviesStream: _moviesBloc.upcomingMovies,
-      onMovieClicked: (Movie m) => _onClick(m),
+      itemsStream: _moviesBloc.upcomingMovies,
+      onItemClicked: (ItemType item) => _onClick((item as Movie)),
     ));
     list.add(Container(
       height: 20,
     ));
-    list.add(MoviesList(
+    list.add(ItemsList(
       listTitle: "Top Rated",
-      moviesStream: _moviesBloc.topRatedMovies,
-      onMovieClicked: (Movie m) => _onClick(m),
+      itemsStream: _moviesBloc.topRatedMovies,
+      onItemClicked: (ItemType item) => _onClick((item as Movie)),
     ));
     return list;
   }

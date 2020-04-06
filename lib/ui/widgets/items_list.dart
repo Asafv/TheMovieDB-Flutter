@@ -1,18 +1,18 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:tmdbflutter/models/movie.dart';
-import 'package:tmdbflutter/ui/widgets/movie_item.dart';
+import 'package:tmdbflutter/models/item_type.dart';
+import 'package:tmdbflutter/ui/widgets/list_item.dart';
 
-class MoviesList extends StatelessWidget {
+class ItemsList extends StatelessWidget {
   final String listTitle;
-  final Stream<List<Movie>> moviesStream;
-  final Function(Movie) onMovieClicked;
+  final Stream<List<ItemType>> itemsStream;
+  final Function(ItemType) onItemClicked;
   final double itemWidth;
 
-  MoviesList(
+  ItemsList(
       {@required this.listTitle,
-      @required this.moviesStream,
-      @required this.onMovieClicked,
+      @required this.itemsStream,
+      @required this.onItemClicked,
       this.itemWidth = 140});
 
   @override
@@ -25,13 +25,11 @@ class MoviesList extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
             Container(
+              margin: EdgeInsets.all(8),
               child: Text(
                 listTitle,
                 maxLines: 1,
-                style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 22,
-                    color: Colors.white),
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
               ),
             ),
             FlatButton(
@@ -39,16 +37,13 @@ class MoviesList extends StatelessWidget {
               onPressed: () {
                 print("flatbutton press");
               },
-              child: Text(
-                "MORE",
-                style: TextStyle(color: Colors.white),
-              ),
+              child: Text("MORE"),
             )
           ],
         ),
-        StreamBuilder<List<Movie>>(
+        StreamBuilder<List<ItemType>>(
             initialData: List(),
-            stream: moviesStream,
+            stream: itemsStream,
             builder: (context, snapshot) {
               print("loading movies.. ${snapshot.data}");
               return Container(
@@ -58,10 +53,10 @@ class MoviesList extends StatelessWidget {
                     scrollDirection: Axis.horizontal,
                     shrinkWrap: true,
                     itemBuilder: (context, index) {
-                      return MovieItem(
-                          movie: snapshot.data[index],
+                      return ListItem(
+                          item: snapshot.data[index],
                           itemWidth: this.itemWidth,
-                          onClick: this.onMovieClicked);
+                          onClick: this.onItemClicked);
                     }),
               );
             }),

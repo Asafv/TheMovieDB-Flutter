@@ -1,10 +1,11 @@
 import 'package:tmdbflutter/api/tmdb_api.dart';
 import 'package:tmdbflutter/models/episode.dart';
 import 'package:tmdbflutter/models/genre.dart';
+import 'package:tmdbflutter/models/item_type.dart';
 import 'package:tmdbflutter/models/network.dart';
 import 'package:tmdbflutter/models/season.dart';
 
-class Tv {
+class Tv implements ItemType {
   String backdropPath;
   List<int> episodeRunTime;
   String firstAirDate;
@@ -174,6 +175,7 @@ class Tv {
 
   Tv.withError(String errorValue) : error = errorValue;
 
+  @override
   String getPosterUrl(ImageSizes size) {
     return TmdbApi().getImageUrl(this.posterPath, size: size);
   }

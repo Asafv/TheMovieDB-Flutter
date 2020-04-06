@@ -1,6 +1,8 @@
+import 'package:tmdbflutter/api/responses/genres_response.dart';
 import 'package:tmdbflutter/api/responses/movies_response.dart';
 import 'package:tmdbflutter/api/responses/tv_responses.dart';
 import 'package:tmdbflutter/api/tmdb_api.dart';
+import 'package:tmdbflutter/bloc/genres_bloc.dart';
 
 class TmdbRepository {
   TmdbApi _api = TmdbApi();
@@ -31,5 +33,12 @@ class TmdbRepository {
 
   Future<TvResponses> getTvPopular() {
     return _api.getTvPopular();
+  }
+
+  Future<GenresResponse> getGenresByType(GenreType type) {
+    if (type == GenreType.movie) {
+      return _api.getMoviesGenres();
+    }
+    return _api.getTvGenres();
   }
 }

@@ -1,9 +1,12 @@
 import 'package:fimber/fimber.dart';
 import 'package:flutter/material.dart';
+import 'package:tmdbflutter/bloc/theme_bloc.dart';
+import 'package:tmdbflutter/bloc_provider.dart';
+import 'package:tmdbflutter/models/item_type.dart';
 import 'package:tmdbflutter/models/tv.dart';
 import 'package:tmdbflutter/ui/details/details_page.dart';
 import 'package:tmdbflutter/ui/tv/tv_bloc.dart';
-import 'package:tmdbflutter/ui/widgets/tv_shows_list.dart';
+import 'package:tmdbflutter/ui/widgets/items_list.dart';
 import 'package:tmdbflutter/utils/app_navigator.dart';
 
 class TvPage extends StatefulWidget {
@@ -30,11 +33,13 @@ class _TvPage extends State<TvPage> {
 
   @override
   Widget build(BuildContext context) {
+    final _themeBloc = BlocProvider.of<ThemeBloc>(context);
+    Fimber.d("_themeBloc: $_themeBloc");
+
     itemWidth = MediaQuery.of(context).size.width;
     _tvShowsList = _initTvShowsList();
 
     return Scaffold(
-      backgroundColor: Colors.black,
       body: ListView(
         shrinkWrap: true,
         scrollDirection: Axis.vertical,
@@ -48,27 +53,27 @@ class _TvPage extends State<TvPage> {
     list.add(Container(
       height: 20,
     ));
-    list.add(TvsList(
+    list.add(ItemsList(
 //      itemWidth: itemWidth * 0.85,
       listTitle: "On The Air",
-      tvShowsStream: _tvBloc.onTheAirTvs,
-      onTvClicked: (Tv tv) => _onClick(tv),
+      itemsStream: _tvBloc.onTheAirTvs,
+      onItemClicked: (ItemType item) => _onClick((item as Tv)),
     ));
     list.add(Container(
       height: 20,
     ));
-    list.add(TvsList(
+    list.add(ItemsList(
       listTitle: "Popular",
-      tvShowsStream: _tvBloc.popularTvs,
-      onTvClicked: (Tv tv) => _onClick(tv),
+      itemsStream: _tvBloc.popularTvs,
+      onItemClicked: (ItemType item) => _onClick((item as Tv)),
     ));
     list.add(Container(
       height: 20,
     ));
-    list.add(TvsList(
+    list.add(ItemsList(
       listTitle: "Top Rated",
-      tvShowsStream: _tvBloc.topRatedTvs,
-      onTvClicked: (Tv tv) => _onClick(tv),
+      itemsStream: _tvBloc.topRatedTvs,
+      onItemClicked: (ItemType item) => _onClick((item as Tv)),
     ));
     return list;
   }
