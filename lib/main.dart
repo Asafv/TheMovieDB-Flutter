@@ -52,7 +52,7 @@ class _MainAppState extends State<MainApp> {
         initialData: _themeBloc.lastTheme,
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           var isDark = snapshot.data == ThemeType.dark;
-          Fimber.d("XXX themeTypeStream, isDark : $isDark");
+          Fimber.d("themeTypeStream, isDark : $isDark");
           return MaterialApp(
             debugShowCheckedModeBanner: false,
             theme:
