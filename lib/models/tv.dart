@@ -101,7 +101,8 @@ class Tv implements ItemType {
       originalLanguage: json['original_language'],
       originalName: json['original_name'],
       overview: json['overview'],
-      popularity: json['popularity'],
+      // XXX sometimes this returns an error cast from int.
+      popularity: json['popularity'] is double ? json['popularity'] : 0.0,
       posterPath: json['poster_path'] != null ? json['poster_path'] : null,
       productionCompanies: json['production_companies'] != null
           ? (json['production_companies'] as List)
@@ -178,5 +179,10 @@ class Tv implements ItemType {
   @override
   String getPosterUrl(ImageSizes size) {
     return TmdbApi().getImageUrl(this.posterPath, size: size);
+  }
+
+  @override
+  String toString() {
+    return "Tv: $name, $posterPath";
   }
 }

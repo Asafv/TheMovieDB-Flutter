@@ -41,7 +41,6 @@ class _DetailsPage extends State<DetailsPage> {
       body: Stack(
         children: <Widget>[
           Container(
-            color: Colors.black,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,

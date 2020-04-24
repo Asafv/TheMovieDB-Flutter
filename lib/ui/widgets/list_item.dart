@@ -40,8 +40,28 @@ class ListItem extends StatelessWidget {
                   fit: BoxFit.fitWidth,
                   height: 200,
                   width: itemWidth,
-                  placeholder: (context, url) => CircularProgressIndicator(),
-                  errorWidget: (context, url, error) => Icon(Icons.error),
+                  placeholder: (context, url) => Container(
+                      height: 200,
+                      child: Center(
+                        child: CircularProgressIndicator(),
+                      )),
+                  errorWidget: (context, url, error) => Container(
+                    height: 200,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Icon(
+                          Icons.error,
+                          color: Colors.red,
+                        ),
+                        Text(
+                          "Image\nNot Found",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(color: Colors.redAccent),
+                        )
+                      ],
+                    ),
+                  ),
                 ),
               ),
               Expanded(

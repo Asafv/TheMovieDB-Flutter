@@ -31,7 +31,7 @@ class ThemeBloc implements Bloc {
   }
 
   void _loadPreviousTheme() async {
-    _lastTheme = await _prefs.getBool(Prefs.K_LAST_THEME_TYPE);
+    _lastTheme = await _prefs.getBool(Prefs.K_LAST_THEME_TYPE) ?? false;
     changeTheme(_lastTheme);
   }
 }

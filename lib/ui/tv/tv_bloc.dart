@@ -26,19 +26,19 @@ class TvBloc {
 
   void _fetchTvShows() async {
     var tv = await _repo.getTvOnTheAir();
-    Fimber.d("OnTheAir: ${tv.results.length}");
+    Fimber.d("OnTheAir: ${tv.results}");
     if (tv.error == null) {
       _onTheAirSubject.sink.add(tv.results);
     }
 
     tv = await _repo.getTvTopRated();
-    Fimber.d("topRated: ${tv.results.length}");
+    Fimber.d("topRated: ${tv.results}");
     if (tv.error == null) {
       _topRatedSubject.sink.add(tv.results);
     }
 
     tv = await _repo.getTvPopular();
-    Fimber.d("popular: ${tv.results.length}");
+    Fimber.d("popular: ${tv.results}");
     if (tv.error == null) {
       _popularSubject.sink.add(tv.results);
     }

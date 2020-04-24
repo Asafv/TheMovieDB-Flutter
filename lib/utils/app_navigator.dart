@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tmdbflutter/models/movie.dart';
 import 'package:tmdbflutter/models/tv.dart';
 import 'package:tmdbflutter/ui/details/details_page.dart';
+import 'package:tmdbflutter/ui/search/bloc/search_bloc.dart';
+import 'package:tmdbflutter/ui/search/search_page.dart';
 
 enum NavAction { movies, tvs, details }
 
@@ -36,5 +39,17 @@ class AppNavigator {
 
   static void pop(BuildContext context) {
     Navigator.pop(context);
+  }
+
+  static goToSearch(BuildContext context, DetailsType type) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => BlocProvider(
+          create: (context) => SearchBloc(),
+          child: SearchPage(type: type),
+        ),
+      ),
+    );
   }
 }

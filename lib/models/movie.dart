@@ -155,6 +155,13 @@ class Movie implements ItemType {
 
   @override
   String getPosterUrl(ImageSizes size) {
+//    Fimber.d("${this.title} -(posterPath): ${this.posterPath}");
+//    Fimber.d("${this.title} -(backdropPath): ${this.backdropPath}");
     return TmdbApi().getImageUrl(this.posterPath, size: size);
+  }
+
+  @override
+  String toString() {
+    return "Movie: $title, $posterPath";
   }
 }
