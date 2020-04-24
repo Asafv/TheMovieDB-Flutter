@@ -1,4 +1,4 @@
-import 'package:tmdbflutter/api/tmdb_api.dart';
+import 'package:tmdbflutter/data/api/tmdb_api.dart';
 import 'package:tmdbflutter/models/collection.dart';
 import 'package:tmdbflutter/models/genre.dart';
 import 'package:tmdbflutter/models/item_type.dart';

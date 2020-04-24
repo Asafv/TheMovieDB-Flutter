@@ -1,7 +1,7 @@
 import 'package:fimber/fimber.dart';
 import 'package:rxdart/rxdart.dart';
+import 'package:tmdbflutter/data/tmdb_repository.dart';
 import 'package:tmdbflutter/models/tv.dart';
-import 'package:tmdbflutter/repo/tmdb_repository.dart';
 
 class TvBloc {
   final TmdbRepository _repo = TmdbRepository();

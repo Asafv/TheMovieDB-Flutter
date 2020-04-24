@@ -1,8 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:dio_http_cache/dio_http_cache.dart';
-import 'package:tmdbflutter/api/responses/genres_response.dart';
-import 'package:tmdbflutter/api/responses/movies_response.dart';
-import 'package:tmdbflutter/api/responses/tv_responses.dart';
+import 'package:tmdbflutter/data/api/responses/genres_response.dart';
+import 'package:tmdbflutter/data/api/responses/movies_response.dart';
+import 'package:tmdbflutter/data/api/responses/tv_responses.dart';
+import 'package:tmdbflutter/data/api/responses/video_response.dart';
 import 'package:tmdbflutter/models/movie.dart';
 import 'package:tmdbflutter/models/tv.dart';
 
@@ -98,6 +99,16 @@ class TmdbApi {
     }
   }
 
+  Future<VideoResponse> getMovieVideos(int id) async {
+    try {
+      Response response = await _dio.get("$_movieEndpoint/$id/videos");
+      return VideoResponse.fromJson(response.data);
+    } catch (error, stacktrace) {
+      print("Exception occured: $error stackTrace: $stacktrace");
+      return VideoResponse.withError("$error");
+    }
+  }
+
   Future<GenresResponse> getMoviesGenres() async {
     try {
       Response response = await _dio.get("$_movieGenresEndpoint");
@@ -105,6 +116,17 @@ class TmdbApi {
     } catch (error, stacktrace) {
       print("Exception occured: $error stackTrace: $stacktrace");
       return GenresResponse.withError("$error");
+    }
+  }
+
+  Future<MoviesResponse> searchMovies(String searchTerm) async {
+    final query = searchTerm.replaceAll(" ", "+");
+    try {
+      Response response = await _dio.get("$_moviesSearchEndpoint$query");
+      return MoviesResponse.fromJson(response.data);
+    } catch (error, stacktrace) {
+      print("Exception occured: $error stackTrace: $stacktrace");
+      return MoviesResponse.withError("$error");
     }
   }
 
@@ -155,17 +177,6 @@ class TmdbApi {
     } catch (error, stacktrace) {
       print("Exception occured: $error stackTrace: $stacktrace");
       return Tv.withError("$error");
-    }
-  }
-
-  Future<MoviesResponse> searchMovies(String searchTerm) async {
-    final query = searchTerm.replaceAll(" ", "+");
-    try {
-      Response response = await _dio.get("$_moviesSearchEndpoint$query");
-      return MoviesResponse.fromJson(response.data);
-    } catch (error, stacktrace) {
-      print("Exception occured: $error stackTrace: $stacktrace");
-      return MoviesResponse.withError("$error");
     }
   }
 

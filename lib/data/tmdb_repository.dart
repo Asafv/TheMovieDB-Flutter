@@ -1,8 +1,8 @@
-import 'package:tmdbflutter/api/responses/genres_response.dart';
-import 'package:tmdbflutter/api/responses/movies_response.dart';
-import 'package:tmdbflutter/api/responses/tv_responses.dart';
-import 'package:tmdbflutter/api/tmdb_api.dart';
 import 'package:tmdbflutter/bloc/genres_bloc.dart';
+import 'package:tmdbflutter/data/api/responses/genres_response.dart';
+import 'package:tmdbflutter/data/api/responses/movies_response.dart';
+import 'package:tmdbflutter/data/api/responses/tv_responses.dart';
+import 'package:tmdbflutter/data/api/tmdb_api.dart';
 
 class TmdbRepository {
   TmdbApi _api = TmdbApi();
@@ -48,5 +48,13 @@ class TmdbRepository {
 
   Future<TvResponses> searchTvShows(String searchTerm) {
     return _api.searchTvs(searchTerm);
+  }
+
+  getMovieById(int id) {
+    return _api.getMovieById(id);
+  }
+
+  getTvById(int id) {
+    return _api.getTvById(id);
   }
 }

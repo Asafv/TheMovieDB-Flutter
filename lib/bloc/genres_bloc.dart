@@ -1,10 +1,10 @@
 import 'package:fimber/fimber.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:rxdart/rxdart.dart';
-import 'package:tmdbflutter/api/responses/genres_response.dart';
 import 'package:tmdbflutter/bloc.dart';
+import 'package:tmdbflutter/data/api/responses/genres_response.dart';
+import 'package:tmdbflutter/data/tmdb_repository.dart';
 import 'package:tmdbflutter/models/genre.dart';
-import 'package:tmdbflutter/repo/tmdb_repository.dart';
 
 enum GenreType { movie, tv }
 

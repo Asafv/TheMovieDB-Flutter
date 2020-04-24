@@ -37,6 +37,8 @@ class _HomePage extends State<HomePage> {
     _genresBloc = GenresBloc(
         genreType:
             (_loadingPage is MoviesPage) ? GenreType.movie : GenreType.tv);
+
+    _lastSelectedTheme();
   }
 
   @override
@@ -149,7 +151,7 @@ class _HomePage extends State<HomePage> {
             color: Colors.lightGreen,
           ),
           Text(
-            'The Movie DB Bloc',
+            'The Movie DB',
             style: TextStyle(
               fontSize: 22,
               fontWeight: FontWeight.bold,
@@ -194,6 +196,7 @@ class _HomePage extends State<HomePage> {
 
   void _lastSelectedTheme() async {
     final lastTheme = await _prefs.getBool(Prefs.K_LAST_THEME_TYPE) ?? false;
+//    Fimber.d("lastTheme: $lastTheme");
     setState(() {
       _isDarkTheme = lastTheme ?? false;
       _currentTheme = lastTheme ? "Dark" : "Light";

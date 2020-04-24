@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tmdbflutter/api/responses/movies_response.dart';
-import 'package:tmdbflutter/api/responses/tv_responses.dart';
-import 'package:tmdbflutter/repo/tmdb_repository.dart';
+import 'package:tmdbflutter/data/api/responses/movies_response.dart';
+import 'package:tmdbflutter/data/api/responses/tv_responses.dart';
+import 'package:tmdbflutter/data/tmdb_repository.dart';
 import 'package:tmdbflutter/ui/details/details_page.dart';
 import 'package:tmdbflutter/ui/search/bloc/search_event.dart';
 import 'package:tmdbflutter/ui/search/bloc/search_state.dart';
