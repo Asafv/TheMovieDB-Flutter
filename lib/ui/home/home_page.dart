@@ -3,9 +3,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:tmdbflutter/bloc/genres_bloc.dart';
 import 'package:tmdbflutter/bloc/theme_bloc.dart';
-import 'package:tmdbflutter/bloc_provider.dart';
+import 'package:tmdbflutter/bloc_provider.dart' as BP;
+import 'package:tmdbflutter/ui/details/details_page.dart';
 import 'package:tmdbflutter/ui/movies/movies_page.dart';
 import 'package:tmdbflutter/ui/tv/tv_page.dart';
+import 'package:tmdbflutter/utils/app_navigator.dart';
 import 'package:tmdbflutter/utils/prefs.dart';
 
 class HomePage extends StatefulWidget {
@@ -33,29 +35,42 @@ class _HomePage extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    final _themeBloc = BlocProvider.of<ThemeBloc>(context);
+    final _themeBloc = BP.BlocProvider.of<ThemeBloc>(context);
     Fimber.d("_themeBloc: $_themeBloc");
 
-    return Scaffold(
-        appBar: AppBar(
-          title: Text(_appBarTitle),
-          actions: <Widget>[
-            PopupMenuButton<Choice>(
-              onSelected: _select,
-              itemBuilder: (BuildContext context) {
-                return choices.map((Choice choice) {
-                  return PopupMenuItem<Choice>(
-                    value: choice,
-                    child: Text(choice.title),
-                  );
-                }).toList();
-              },
+    return StreamBuilder<ThemeType>(
+      stream: _themeBloc.themeTypeStream,
+      builder: (BuildContext context, AsyncSnapshot snapshot) {
+        return Scaffold(
+            appBar: AppBar(
+              title: Text(_appBarTitle),
+              actions: <Widget>[
+                IconButton(
+                  icon: Icon(Icons.search),
+                  onPressed: () => AppNavigator.goToSearch(
+                      context,
+                      (_loadingPage is MoviesPage)
+                          ? DetailsType.movie
+                          : DetailsType.tv),
+                ),
+                PopupMenuButton<Choice>(
+                  onSelected: _select,
+                  itemBuilder: (BuildContext context) {
+                    return choices.map((Choice choice) {
+                      return PopupMenuItem<Choice>(
+                        value: choice,
+                        child: Text(choice.title),
+                      );
+                    }).toList();
+                  },
+                ),
+              ],
             ),
-          ],
-        ),
-        body: _loadingPage,
-        // TODO update drawer genres list according to page selectedPage
-        drawer: _buildDrawer(_themeBloc));
+            body: _loadingPage,
+            // TODO update drawer genres list according to page selectedPage
+            drawer: _buildDrawer(_themeBloc));
+      },
+    );
   }
 
   Drawer _buildDrawer(ThemeBloc _themeBloc) {
@@ -74,11 +89,11 @@ class _HomePage extends State<HomePage> {
   }
 
   List<Widget> _buildDrawerListTiles(ThemeBloc _themeBloc) {
-    List<Widget> list = List();
+    List<Widget> list = List()
+      ..add(_drawerHeader())
+      ..add(_themeListTile(_themeBloc))
+      ..add(_genresListTile());
 
-    list.add(_drawerHeader());
-    list.add(_themeListTile(_themeBloc));
-    list.add(_genresListTile());
     _genresBloc.genresStream.listen((genresList) {
       genresList.forEach((g) {
         list.add(ListTile(
@@ -146,7 +161,7 @@ class _HomePage extends State<HomePage> {
   }
 
   void _pop() {
-    Navigator.pop(context);
+    AppNavigator.pop(context);
   }
 
   void _select(Choice choice) async {
@@ -178,7 +193,7 @@ class _HomePage extends State<HomePage> {
   }
 
   void _lastSelectedTheme() async {
-    final lastTheme = await _prefs.getBool(Prefs.K_LAST_THEME_TYPE);
+    final lastTheme = await _prefs.getBool(Prefs.K_LAST_THEME_TYPE) ?? false;
     setState(() {
       _isDarkTheme = lastTheme ?? false;
       _currentTheme = lastTheme ? "Dark" : "Light";

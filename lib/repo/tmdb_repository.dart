@@ -41,4 +41,12 @@ class TmdbRepository {
     }
     return _api.getTvGenres();
   }
+
+  Future<MoviesResponse> searchMovies(String searchTerm) {
+    return _api.searchMovies(searchTerm);
+  }
+
+  Future<TvResponses> searchTvShows(String searchTerm) {
+    return _api.searchTvs(searchTerm);
+  }
 }

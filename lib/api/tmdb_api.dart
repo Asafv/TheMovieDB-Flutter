@@ -13,13 +13,17 @@ class TmdbApi {
       "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI5OWU0OWUzODg3ZWE0ZWU1NDY1ZTFjNjhhOGNhNmJmMCIsInN1YiI6IjU4NjIyYzgzYzNhMzY4MWE3ZDAzOWQ2YiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.nL8_22Gn19SOJJocosQea2Y2UobbKF9jb5HRHwAiN-0";
 
   /// EndPoints
-  static final String _baseUrl = "https://api.themoviedb.org/3/";
+  static final String _baseUrl = "https://api.themoviedb.org/3";
   static final String _movieEndpoint = "$_baseUrl/movie";
   static final String _tvEndpoint = "$_baseUrl/tv";
 
   /// Genres
   static final String _movieGenresEndpoint = "$_baseUrl/genre/movie/list";
   static final String _tvGenresEndpoint = "$_baseUrl/genre/tv/list";
+
+  /// Search
+  static final String _tvSearchEndpoint = "$_baseUrl/search/tv?query=";
+  static final String _moviesSearchEndpoint = "$_baseUrl/search/movie?query=";
 
   /// Images
   static final String _imageUrl = "https://image.tmdb.org/t/p";
@@ -151,6 +155,28 @@ class TmdbApi {
     } catch (error, stacktrace) {
       print("Exception occured: $error stackTrace: $stacktrace");
       return Tv.withError("$error");
+    }
+  }
+
+  Future<MoviesResponse> searchMovies(String searchTerm) async {
+    final query = searchTerm.replaceAll(" ", "+");
+    try {
+      Response response = await _dio.get("$_moviesSearchEndpoint$query");
+      return MoviesResponse.fromJson(response.data);
+    } catch (error, stacktrace) {
+      print("Exception occured: $error stackTrace: $stacktrace");
+      return MoviesResponse.withError("$error");
+    }
+  }
+
+  Future<TvResponses> searchTvs(String searchTerm) async {
+    final query = searchTerm.replaceAll(" ", "+");
+    try {
+      Response response = await _dio.get("$_tvSearchEndpoint$query");
+      return TvResponses.fromJson(response.data);
+    } catch (error, stacktrace) {
+      print("Exception occured: $error stackTrace: $stacktrace");
+      return TvResponses.withError("$error");
     }
   }
 
