@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:tmdbflutter/bloc/genres_bloc.dart';
 import 'package:tmdbflutter/bloc/theme_bloc.dart';
 import 'package:tmdbflutter/bloc_provider.dart' as BP;
+import 'package:tmdbflutter/models/genre.dart';
 import 'package:tmdbflutter/ui/details/details_page.dart';
 import 'package:tmdbflutter/ui/movies/movies_page.dart';
 import 'package:tmdbflutter/ui/tv/tv_page.dart';
@@ -16,8 +17,11 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePage extends State<HomePage> {
+  final Prefs _prefs = Prefs();
+
   GenresBloc _genresBloc;
-  Prefs _prefs = Prefs();
+  ThemeBloc _themeBloc;
+
   Widget _loadingPage = MoviesPage();
   String _appBarTitle = "Movies";
   bool _isDarkTheme = false;
@@ -26,21 +30,21 @@ class _HomePage extends State<HomePage> {
   @override
   void initState() {
     super.initState();
+    _themeBloc = BP.BlocProvider.of<ThemeBloc>(context);
+    Fimber.d("_themeBloc: $_themeBloc");
+
     _lastSelectedPage();
     _genresBloc = GenresBloc(
         genreType:
             (_loadingPage is MoviesPage) ? GenreType.movie : GenreType.tv);
-    _lastSelectedTheme();
   }
 
   @override
   Widget build(BuildContext context) {
-    final _themeBloc = BP.BlocProvider.of<ThemeBloc>(context);
-    Fimber.d("_themeBloc: $_themeBloc");
-
     return StreamBuilder<ThemeType>(
       stream: _themeBloc.themeTypeStream,
       builder: (BuildContext context, AsyncSnapshot snapshot) {
+        Fimber.d("_themeBloc.themeTypeStream: ${snapshot.data}");
         return Scaffold(
             appBar: AppBar(
               title: Text(_appBarTitle),
@@ -67,45 +71,48 @@ class _HomePage extends State<HomePage> {
               ],
             ),
             body: _loadingPage,
-            // TODO update drawer genres list according to page selectedPage
-            drawer: _buildDrawer(_themeBloc));
+            drawer: _buildDrawer());
       },
     );
   }
 
-  Drawer _buildDrawer(ThemeBloc _themeBloc) {
+  Drawer _buildDrawer() {
     return Drawer(
       // Add a ListView to the drawer. This ensures the user can scroll
       // through the options in the drawer if there isn't enough vertical
       // space to fit everything.
       child: Container(
-        child: ListView(
-          // Important: Remove any padding from the ListView.
-          padding: EdgeInsets.zero,
-          children: _buildDrawerListTiles(_themeBloc),
-        ),
+        child: StreamBuilder<List<Genre>>(
+            initialData: [],
+            stream: _genresBloc.genresStream,
+            builder: (context, snapshot) {
+              return ListView(
+                // Important: Remove any padding from the ListView.
+                padding: EdgeInsets.zero,
+                children: _buildDrawerListTiles(snapshot.data),
+              );
+            }),
       ),
     );
   }
 
-  List<Widget> _buildDrawerListTiles(ThemeBloc _themeBloc) {
+  _buildDrawerListTiles(List<Genre> genres) {
+    Fimber.d("_buildDrawerListTiles");
     List<Widget> list = List()
       ..add(_drawerHeader())
-      ..add(_themeListTile(_themeBloc))
+      ..add(_themeListTile())
       ..add(_genresListTile());
 
-    _genresBloc.genresStream.listen((genresList) {
-      genresList.forEach((g) {
-        list.add(ListTile(
-          title: Text(g.name),
-          onTap: () {
-            // TODO: create filters for specific genres type.
-            // Update the state of the app.
-            // Then close the drawer.
-            _pop();
-          },
-        ));
-      });
+    genres.forEach((g) {
+      list.add(ListTile(
+        title: Text(g.name),
+        onTap: () {
+          // TODO: create filters for specific genres type.
+          // Update the state of the app.
+          // Then close the drawer.
+          _pop();
+        },
+      ));
     });
     return list;
   }
@@ -115,27 +122,20 @@ class _HomePage extends State<HomePage> {
       title: Text(
         'Genres',
         style: TextStyle(
-          fontSize: 16,
-          fontWeight: FontWeight.bold,
-        ),
+            fontSize: 20, fontWeight: FontWeight.bold, color: Colors.green),
       ),
     );
   }
 
-  ListTile _themeListTile(ThemeBloc _themeBloc) {
+  ListTile _themeListTile() {
     return ListTile(
       title: Text('Theme'),
       subtitle: Text(_currentTheme),
       trailing: Switch(
-          value: _isDarkTheme,
-          onChanged: (value) {
-            _onThemeChanged(_themeBloc, value);
-          }),
-      onTap: () {
-        // Update the state of the app.
-        // Then close the drawer.
-        _pop();
-      },
+        value: _isDarkTheme,
+        onChanged: (value) => _onThemeChanged(value),
+      ),
+      onTap: () => _onThemeChanged(!_isDarkTheme),
     );
   }
 
@@ -186,9 +186,9 @@ class _HomePage extends State<HomePage> {
         (_loadingPage is MoviesPage) ? GenreType.movie : GenreType.tv);
   }
 
-  void _onThemeChanged(ThemeBloc bloc, bool value) async {
+  void _onThemeChanged(bool value) async {
     Fimber.d("_onThemeChanged: $value");
-    bloc.changeTheme(value);
+    await _themeBloc.changeTheme(value);
     _lastSelectedTheme();
   }
 

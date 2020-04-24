@@ -30,6 +30,14 @@ class MainApp extends StatefulWidget {
 }
 
 class _MainAppState extends State<MainApp> {
+  ThemeBloc _themeBloc;
+
+  @override
+  void initState() {
+    _themeBloc = ThemeBloc();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     //    SystemChrome.setPreferredOrientations([
@@ -37,17 +45,15 @@ class _MainAppState extends State<MainApp> {
 //      DeviceOrientation.portraitDown,
 //    ]);
 
-    final _themeBloc = ThemeBloc();
-
-    return StreamBuilder<ThemeType>(
-      stream: _themeBloc.themeTypeStream,
-      initialData: _themeBloc.lastTheme,
-      builder: (BuildContext context, AsyncSnapshot snapshot) {
-        Fimber.d("themeTypeStream : ${snapshot.data}");
-        var isDark = snapshot.data == ThemeType.dark;
-        return BlocProvider<ThemeBloc>(
-          bloc: _themeBloc,
-          child: MaterialApp(
+    return BlocProvider<ThemeBloc>(
+      bloc: _themeBloc,
+      child: StreamBuilder<ThemeType>(
+        stream: _themeBloc.themeTypeStream,
+        initialData: _themeBloc.lastTheme,
+        builder: (BuildContext context, AsyncSnapshot snapshot) {
+          var isDark = snapshot.data == ThemeType.dark;
+          Fimber.d("XXX themeTypeStream, isDark : $isDark");
+          return MaterialApp(
             debugShowCheckedModeBanner: false,
             theme:
                 isDark ? ThemeUtils.getDarkTheme() : ThemeUtils.getLightTheme(),
@@ -56,9 +62,9 @@ class _MainAppState extends State<MainApp> {
               "/movie_page": (BuildContext context) => MoviesPage(),
               "/tv_page": (BuildContext context) => TvPage(),
             },
-          ),
-        );
-      },
+          );
+        },
+      ),
     );
   }
 }
