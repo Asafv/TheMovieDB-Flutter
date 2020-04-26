@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rxdart/rxdart.dart';
+import 'package:tmdbflutter/bloc/search/search_bloc.dart';
+import 'package:tmdbflutter/bloc/search/search_event.dart';
 import 'package:tmdbflutter/ui/details/details_page.dart';
-import 'package:tmdbflutter/ui/search/bloc/search_bloc.dart';
-import 'package:tmdbflutter/ui/search/bloc/search_event.dart';
 import 'package:tmdbflutter/ui/search/search_body_widget.dart';
 
 class SearchPage extends StatefulWidget {

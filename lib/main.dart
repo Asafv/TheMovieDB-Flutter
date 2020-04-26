@@ -6,8 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:tmdbflutter/bloc/theme_bloc.dart';
 import 'package:tmdbflutter/bloc_provider.dart';
 import 'package:tmdbflutter/ui/home/home_page.dart';
-import 'package:tmdbflutter/ui/movies/movies_page.dart';
-import 'package:tmdbflutter/ui/tv/tv_page.dart';
 import 'package:tmdbflutter/utils/theme_utils.dart';
 
 void main() {
@@ -39,12 +37,13 @@ class _MainAppState extends State<MainApp> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    //    SystemChrome.setPreferredOrientations([
-//      DeviceOrientation.portraitUp,
-//      DeviceOrientation.portraitDown,
-//    ]);
+  void dispose() {
+    _themeBloc.dispose();
+    super.dispose();
+  }
 
+  @override
+  Widget build(BuildContext context) {
     return BlocProvider<ThemeBloc>(
       bloc: _themeBloc,
       child: StreamBuilder<ThemeState>(
@@ -52,16 +51,12 @@ class _MainAppState extends State<MainApp> {
         initialData: _themeBloc.lastTheme,
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           var isDark = snapshot.data == ThemeState.dark;
-          Fimber.d("themeTypeStream, isDark : $isDark");
+          Fimber.d("ThemeState, isDark : $isDark");
           return MaterialApp(
             debugShowCheckedModeBanner: false,
             theme:
                 isDark ? ThemeUtils.getDarkTheme() : ThemeUtils.getLightTheme(),
             home: HomePage(),
-            routes: {
-              "/movie_page": (BuildContext context) => MoviesPage(),
-              "/tv_page": (BuildContext context) => TvPage(),
-            },
           );
         },
       ),
