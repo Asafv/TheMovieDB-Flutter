@@ -47,11 +47,11 @@ class _MainAppState extends State<MainApp> {
 
     return BlocProvider<ThemeBloc>(
       bloc: _themeBloc,
-      child: StreamBuilder<ThemeType>(
-        stream: _themeBloc.themeTypeStream,
+      child: StreamBuilder<ThemeState>(
+        stream: _themeBloc.themeStateStream,
         initialData: _themeBloc.lastTheme,
         builder: (BuildContext context, AsyncSnapshot snapshot) {
-          var isDark = snapshot.data == ThemeType.dark;
+          var isDark = snapshot.data == ThemeState.dark;
           Fimber.d("themeTypeStream, isDark : $isDark");
           return MaterialApp(
             debugShowCheckedModeBanner: false,

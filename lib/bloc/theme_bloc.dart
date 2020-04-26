@@ -3,16 +3,16 @@ import 'package:rxdart/rxdart.dart';
 import 'package:tmdbflutter/bloc.dart';
 import 'package:tmdbflutter/utils/prefs.dart';
 
-enum ThemeType { dark, light }
+enum ThemeState { dark, light }
 
 class ThemeBloc implements Bloc {
-  final _themeSubject = BehaviorSubject<ThemeType>();
+  final _themeStateSubject = BehaviorSubject<ThemeState>();
   final Prefs _prefs = Prefs();
 
   bool _lastTheme = false;
-  ThemeType get lastTheme => _lastTheme ? ThemeType.dark : ThemeType.light;
+  ThemeState get lastTheme => _lastTheme ? ThemeState.dark : ThemeState.light;
 
-  Stream<ThemeType> get themeTypeStream => _themeSubject.stream;
+  Stream<ThemeState> get themeStateStream => _themeStateSubject.stream;
 
   ThemeBloc() {
     _loadPreviousTheme();
@@ -20,14 +20,14 @@ class ThemeBloc implements Bloc {
 
   @override
   void dispose() {
-    _themeSubject.close();
+    _themeStateSubject.close();
   }
 
   Future<void> changeTheme(bool isDark) async {
     Fimber.d("changeTheme: $isDark");
     await _prefs.saveBool(Prefs.K_LAST_THEME_TYPE, isDark);
-    var type = isDark ? ThemeType.dark : ThemeType.light;
-    _themeSubject.sink.add(type);
+    var type = isDark ? ThemeState.dark : ThemeState.light;
+    _themeStateSubject.sink.add(type);
     return;
   }
 

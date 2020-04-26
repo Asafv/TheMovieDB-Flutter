@@ -4,8 +4,8 @@ import 'package:tmdbflutter/bloc/theme_bloc.dart';
 class ThemeUtils {
   static var splashColor = Colors.lightGreen;
 
-  static getBackgroundColor(ThemeType type) {
-    if (type == ThemeType.dark) {
+  static getBackgroundColor(ThemeState type) {
+    if (type == ThemeState.dark) {
       return Colors.black;
     }
     return Colors.white;

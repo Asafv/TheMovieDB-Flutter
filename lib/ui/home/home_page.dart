@@ -43,8 +43,8 @@ class _HomePage extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<ThemeType>(
-      stream: _themeBloc.themeTypeStream,
+    return StreamBuilder<ThemeState>(
+      stream: _themeBloc.themeStateStream,
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         Fimber.d("_themeBloc.themeTypeStream: ${snapshot.data}");
         return Scaffold(
