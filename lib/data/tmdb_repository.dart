@@ -42,12 +42,12 @@ class TmdbRepository {
     return _api.getTvGenres();
   }
 
-  Future<MoviesResponse> searchMovies(String searchTerm) {
-    return _api.searchMovies(searchTerm);
+  Future<MoviesResponse> searchMovies(String searchTerm, {int page = 1}) {
+    return _api.searchMovies(searchTerm, page);
   }
 
-  Future<TvResponses> searchTvShows(String searchTerm) {
-    return _api.searchTvs(searchTerm);
+  Future<TvResponses> searchTvShows(String searchTerm, {int page = 1}) {
+    return _api.searchTvs(searchTerm, page);
   }
 
   getMovieById(int id) {

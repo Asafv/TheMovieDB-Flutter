@@ -20,11 +20,6 @@ class _MoviesPage extends State<MoviesPage> {
 
   double itemWidth;
 
-  @override
-  void initState() {
-    super.initState();
-  }
-
   _onClick(Movie m) {
     Fimber.d("onClick: ${m.title}");
     AppNavigator.goToDetails(context, DetailsType.movie, movie: m);

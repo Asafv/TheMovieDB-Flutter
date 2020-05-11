@@ -28,8 +28,8 @@ class _HomePage extends State<HomePage> {
   String _currentTheme = "Light";
 
   @override
-  void initState() {
-    super.initState();
+  void didChangeDependencies() {
+    super.didChangeDependencies();
     _themeBloc = BP.BlocProvider.of<ThemeBloc>(context);
     Fimber.d("_themeBloc: $_themeBloc");
 

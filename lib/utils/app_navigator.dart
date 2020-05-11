@@ -6,7 +6,7 @@ import 'package:tmdbflutter/models/tv.dart';
 import 'package:tmdbflutter/ui/details/details_page.dart';
 import 'package:tmdbflutter/ui/search/search_page.dart';
 
-enum NavAction { movies, tvs, details }
+enum NavAction { movies, tvs }
 
 class AppNavigator {
   static void navToAction(BuildContext context, NavAction action) {
@@ -16,8 +16,6 @@ class AppNavigator {
         break;
       case NavAction.tvs:
         Navigator.pushNamed(context, "/tv_page");
-        break;
-      case NavAction.details:
         break;
     }
   }
@@ -40,7 +38,7 @@ class AppNavigator {
   static void pop(BuildContext context) {
     Navigator.pop(context);
   }
-
+//
   static goToSearch(BuildContext context, DetailsType type) {
     Navigator.push(
       context,

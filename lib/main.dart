@@ -28,13 +28,7 @@ class MainApp extends StatefulWidget {
 }
 
 class _MainAppState extends State<MainApp> {
-  ThemeBloc _themeBloc;
-
-  @override
-  void initState() {
-    _themeBloc = ThemeBloc();
-    super.initState();
-  }
+  ThemeBloc _themeBloc = ThemeBloc();
 
   @override
   void dispose() {

@@ -21,11 +21,6 @@ class _TvPage extends State<TvPage> {
   double itemWidth;
 
   @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
   void dispose() {
     super.dispose();
     _tvBloc.dispose();

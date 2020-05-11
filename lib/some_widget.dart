@@ -12,9 +12,9 @@ class _SomeWidgetState extends State<SomeWidget> {
   ThemeBloc _themeBloc;
 
   @override
-  void initState() {
+  void didChangeDependencies() {
+    super.didChangeDependencies();
     _themeBloc = BlocProvider.of<ThemeBloc>(context);
-    super.initState();
   }
 
   @override

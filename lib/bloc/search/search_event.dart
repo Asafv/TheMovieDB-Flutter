@@ -18,3 +18,13 @@ class TextChanged extends SearchEvent {
   @override
   String toString() => 'TextChanged { text: $text }';
 }
+
+class BottomScrollReached extends SearchEvent {
+  const BottomScrollReached();
+
+  @override
+  List<Object> get props => [];
+
+  @override
+  String toString() => 'BottomScrollReached';
+}

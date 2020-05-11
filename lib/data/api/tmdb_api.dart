@@ -119,10 +119,11 @@ class TmdbApi {
     }
   }
 
-  Future<MoviesResponse> searchMovies(String searchTerm) async {
+  Future<MoviesResponse> searchMovies(String searchTerm, int page) async {
     final query = searchTerm.replaceAll(" ", "+");
     try {
-      Response response = await _dio.get("$_moviesSearchEndpoint$query");
+      Response response =
+          await _dio.get("$_moviesSearchEndpoint$query&page=$page");
       return MoviesResponse.fromJson(response.data);
     } catch (error, stacktrace) {
       print("Exception occured: $error stackTrace: $stacktrace");
@@ -180,10 +181,10 @@ class TmdbApi {
     }
   }
 
-  Future<TvResponses> searchTvs(String searchTerm) async {
+  Future<TvResponses> searchTvs(String searchTerm, int page) async {
     final query = searchTerm.replaceAll(" ", "+");
     try {
-      Response response = await _dio.get("$_tvSearchEndpoint$query");
+      Response response = await _dio.get("$_tvSearchEndpoint$query&page=$page");
       return TvResponses.fromJson(response.data);
     } catch (error, stacktrace) {
       print("Exception occured: $error stackTrace: $stacktrace");

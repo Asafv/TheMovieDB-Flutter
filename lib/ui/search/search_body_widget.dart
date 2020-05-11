@@ -1,3 +1,4 @@
+import 'package:fimber/fimber.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tmdbflutter/bloc/search/search_bloc.dart';
@@ -17,6 +18,7 @@ class SearchBody extends StatelessWidget {
           return _centeredWidget(Text(state.error));
         }
         if (state is SearchStateSuccess) {
+          Fimber.d("SearchStateSuccess");
           switch (state.type) {
             case DetailsType.movie:
               return state.movies.isEmpty

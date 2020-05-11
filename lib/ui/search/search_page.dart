@@ -24,7 +24,8 @@ class _SearchPageState extends State<SearchPage> {
   String searchQuery = "";
 
   @override
-  void initState() {
+  void didChangeDependencies() {
+    super.didChangeDependencies();
     _searchBloc = BlocProvider.of<SearchBloc>(context);
 
     textChangeSubject
@@ -32,8 +33,6 @@ class _SearchPageState extends State<SearchPage> {
         .debounceTime(Duration(milliseconds: 400))
         .listen((text) =>
             _searchBloc.add(TextChanged(text: text, type: widget.type)));
-
-    super.initState();
   }
 
   @override
