@@ -1,33 +1,32 @@
 import 'package:fimber/fimber.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tmdbflutter/bloc/search/search_bloc.dart';
-import 'package:tmdbflutter/bloc/search/search_event.dart';
+import 'package:tmdbflutter/bloc_provider.dart';
 import 'package:tmdbflutter/models/item_type.dart';
 import 'package:tmdbflutter/models/movie.dart';
 import 'package:tmdbflutter/ui/details/details_page.dart';
+import 'package:tmdbflutter/ui/show_more/show_more_bloc.dart';
 import 'package:tmdbflutter/ui/widgets/list_item.dart';
 import 'package:tmdbflutter/utils/app_navigator.dart';
 
-class SearchResults extends StatefulWidget {
+class ShowMoreResults extends StatefulWidget {
   final List<ItemType> items;
 
-  const SearchResults({Key key, this.items}) : super(key: key);
+  const ShowMoreResults({Key key, this.items}) : super(key: key);
 
   @override
-  _SearchResultsState createState() => _SearchResultsState();
+  _ShowMoreResultsState createState() => _ShowMoreResultsState();
 }
 
-class _SearchResultsState extends State<SearchResults> {
+class _ShowMoreResultsState extends State<ShowMoreResults> {
   ScrollController _controller = ScrollController();
 
-  SearchBloc _searchBloc;
+  ShowMoreBloc _showMoreBloc;
 
   _scrollListener() {
     if (_controller.offset >= _controller.position.maxScrollExtent &&
         !_controller.position.outOfRange) {
       Fimber.d("reach the bottom");
-      _searchBloc.add(BottomScrollReached());
+      _showMoreBloc.fetchMore(isBottomReached: true);
     }
     if (_controller.offset <= _controller.position.minScrollExtent &&
         !_controller.position.outOfRange) {
@@ -38,7 +37,7 @@ class _SearchResultsState extends State<SearchResults> {
   @override
   void initState() {
     super.initState();
-    _searchBloc = BlocProvider.of<SearchBloc>(context);
+    _showMoreBloc = BlocProvider.of<ShowMoreBloc>(context);
     _controller.addListener(_scrollListener);
   }
 

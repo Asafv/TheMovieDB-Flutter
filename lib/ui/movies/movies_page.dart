@@ -5,6 +5,7 @@ import 'package:tmdbflutter/models/item_type.dart';
 import 'package:tmdbflutter/models/movie.dart';
 import 'package:tmdbflutter/ui/details/details_page.dart';
 import 'package:tmdbflutter/ui/movies/movies_bloc.dart';
+import 'package:tmdbflutter/ui/show_more/show_more_bloc.dart';
 import 'package:tmdbflutter/ui/widgets/items_list.dart';
 import 'package:tmdbflutter/utils/app_navigator.dart';
 
@@ -55,6 +56,8 @@ class _MoviesPage extends State<MoviesPage> {
       listTitle: "Now Playing",
       itemsStream: _moviesBloc.nowPlayingMovies,
       onItemClicked: (ItemType item) => _onClick((item as Movie)),
+      onMoreClicked: (List<ItemType> items) =>
+          showMorePage(items, ShowMoreState.nowPlayingMovies),
     ));
     list.add(Container(
       height: 20,
@@ -63,6 +66,8 @@ class _MoviesPage extends State<MoviesPage> {
       listTitle: "Popular",
       itemsStream: _moviesBloc.popularMovies,
       onItemClicked: (ItemType item) => _onClick((item as Movie)),
+      onMoreClicked: (List<ItemType> items) =>
+          showMorePage(items, ShowMoreState.popularMovies),
     ));
     list.add(Container(
       height: 20,
@@ -71,6 +76,8 @@ class _MoviesPage extends State<MoviesPage> {
       listTitle: "Upcoming",
       itemsStream: _moviesBloc.upcomingMovies,
       onItemClicked: (ItemType item) => _onClick((item as Movie)),
+      onMoreClicked: (List<ItemType> items) =>
+          showMorePage(items, ShowMoreState.upcomingMovies),
     ));
     list.add(Container(
       height: 20,
@@ -79,7 +86,13 @@ class _MoviesPage extends State<MoviesPage> {
       listTitle: "Top Rated",
       itemsStream: _moviesBloc.topRatedMovies,
       onItemClicked: (ItemType item) => _onClick((item as Movie)),
+      onMoreClicked: (List<ItemType> items) =>
+          showMorePage(items, ShowMoreState.topRatedMovies),
     ));
     return list;
+  }
+
+  void showMorePage(List<ItemType> items, state) {
+    return AppNavigator.showMorePage(context, state, items);
   }
 }

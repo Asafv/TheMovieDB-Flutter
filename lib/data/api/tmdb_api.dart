@@ -49,9 +49,10 @@ class TmdbApi {
     )).interceptor);
   }
 
-  Future<MoviesResponse> getMoviesNowPlaying() async {
+  Future<MoviesResponse> getMoviesNowPlaying(int page) async {
     try {
-      Response response = await _dio.get("$_movieEndpoint/now_playing");
+      Response response =
+          await _dio.get("$_movieEndpoint/now_playing?page=$page");
       return MoviesResponse.fromJson(response.data);
     } catch (error, stacktrace) {
       print("Exception occured: $error stackTrace: $stacktrace");
@@ -59,9 +60,10 @@ class TmdbApi {
     }
   }
 
-  Future<MoviesResponse> getMoviesTopRated() async {
+  Future<MoviesResponse> getMoviesTopRated(int page) async {
     try {
-      Response response = await _dio.get("$_movieEndpoint/top_rated");
+      Response response =
+          await _dio.get("$_movieEndpoint/top_rated?page=$page");
       return MoviesResponse.fromJson(response.data);
     } catch (error, stacktrace) {
       print("Exception occured: $error stackTrace: $stacktrace");
@@ -69,9 +71,9 @@ class TmdbApi {
     }
   }
 
-  Future<MoviesResponse> getMoviesPopular() async {
+  Future<MoviesResponse> getMoviesPopular(int page) async {
     try {
-      Response response = await _dio.get("$_movieEndpoint/popular");
+      Response response = await _dio.get("$_movieEndpoint/popular?page=$page");
       return MoviesResponse.fromJson(response.data);
     } catch (error, stacktrace) {
       print("Exception occured: $error stackTrace: $stacktrace");
@@ -79,9 +81,9 @@ class TmdbApi {
     }
   }
 
-  Future<MoviesResponse> getMoviesUpcoming() async {
+  Future<MoviesResponse> getMoviesUpcoming(int page) async {
     try {
-      Response response = await _dio.get("$_movieEndpoint/upcoming");
+      Response response = await _dio.get("$_movieEndpoint/upcoming?page=$page");
       return MoviesResponse.fromJson(response.data);
     } catch (error, stacktrace) {
       print("Exception occured: $error stackTrace: $stacktrace");
@@ -141,9 +143,9 @@ class TmdbApi {
     }
   }
 
-  Future<TvResponses> getTvOnTheAir() async {
+  Future<TvResponses> getTvOnTheAir(int page) async {
     try {
-      Response response = await _dio.get("$_tvEndpoint/on_the_air");
+      Response response = await _dio.get("$_tvEndpoint/on_the_air?page=$page");
       return TvResponses.fromJson(response.data);
     } catch (error, stacktrace) {
       print("Exception occured: $error stackTrace: $stacktrace");
@@ -151,9 +153,9 @@ class TmdbApi {
     }
   }
 
-  Future<TvResponses> getTvPopular() async {
+  Future<TvResponses> getTvPopular(int page) async {
     try {
-      Response response = await _dio.get("$_tvEndpoint/popular");
+      Response response = await _dio.get("$_tvEndpoint/popular?page=$page");
       return TvResponses.fromJson(response.data);
     } catch (error, stacktrace) {
       print("Exception occured: $error stackTrace: $stacktrace");
@@ -161,9 +163,9 @@ class TmdbApi {
     }
   }
 
-  Future<TvResponses> getTvTopRated() async {
+  Future<TvResponses> getTvTopRated(int page) async {
     try {
-      Response response = await _dio.get("$_tvEndpoint/top_rated");
+      Response response = await _dio.get("$_tvEndpoint/top_rated?page=$page");
       return TvResponses.fromJson(response.data);
     } catch (error, stacktrace) {
       print("Exception occured: $error stackTrace: $stacktrace");

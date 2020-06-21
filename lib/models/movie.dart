@@ -84,7 +84,7 @@ class Movie implements ItemType {
       originalLanguage: json['original_language'],
       originalTitle: json['original_title'],
       overview: json['overview'],
-      popularity: json['popularity'],
+      popularity: json['popularity'].toDouble(),
       posterPath: json['poster_path'],
       productionCompanies: json['production_companies'] != null
           ? (json['production_companies'] as List)

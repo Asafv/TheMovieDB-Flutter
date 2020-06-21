@@ -7,32 +7,32 @@ import 'package:tmdbflutter/data/api/tmdb_api.dart';
 class TmdbRepository {
   TmdbApi _api = TmdbApi();
 
-  Future<MoviesResponse> getMoviesNowPlaying() {
-    return _api.getMoviesNowPlaying();
+  Future<MoviesResponse> getMoviesNowPlaying({int page = 1}) {
+    return _api.getMoviesNowPlaying(page);
   }
 
-  Future<MoviesResponse> getMoviesTopRated() {
-    return _api.getMoviesTopRated();
+  Future<MoviesResponse> getMoviesTopRated({int page = 1}) {
+    return _api.getMoviesTopRated(page);
   }
 
-  Future<MoviesResponse> getMoviesPopular() {
-    return _api.getMoviesPopular();
+  Future<MoviesResponse> getMoviesPopular({int page = 1}) {
+    return _api.getMoviesPopular(page);
   }
 
-  Future<MoviesResponse> getMoviesUpcoming() {
-    return _api.getMoviesUpcoming();
+  Future<MoviesResponse> getMoviesUpcoming({int page = 1}) {
+    return _api.getMoviesUpcoming(page);
   }
 
-  Future<TvResponses> getTvOnTheAir() {
-    return _api.getTvOnTheAir();
+  Future<TvResponses> getTvOnTheAir({int page = 1}) {
+    return _api.getTvOnTheAir(page);
   }
 
-  Future<TvResponses> getTvTopRated() {
-    return _api.getTvTopRated();
+  Future<TvResponses> getTvTopRated({int page = 1}) {
+    return _api.getTvTopRated(page);
   }
 
-  Future<TvResponses> getTvPopular() {
-    return _api.getTvPopular();
+  Future<TvResponses> getTvPopular({int page = 1}) {
+    return _api.getTvPopular(page);
   }
 
   Future<GenresResponse> getGenresByType(GenreType type) {

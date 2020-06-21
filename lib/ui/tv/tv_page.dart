@@ -5,6 +5,7 @@ import 'package:tmdbflutter/bloc_provider.dart';
 import 'package:tmdbflutter/models/item_type.dart';
 import 'package:tmdbflutter/models/tv.dart';
 import 'package:tmdbflutter/ui/details/details_page.dart';
+import 'package:tmdbflutter/ui/show_more/show_more_bloc.dart';
 import 'package:tmdbflutter/ui/tv/tv_bloc.dart';
 import 'package:tmdbflutter/ui/widgets/items_list.dart';
 import 'package:tmdbflutter/utils/app_navigator.dart';
@@ -53,6 +54,8 @@ class _TvPage extends State<TvPage> {
       listTitle: "On The Air",
       itemsStream: _tvBloc.onTheAirTvs,
       onItemClicked: (ItemType item) => _onClick((item as Tv)),
+      onMoreClicked: (List<ItemType> items) =>
+          showMorePage(items, ShowMoreState.onTheAirTvs),
     ));
     list.add(Container(
       height: 20,
@@ -61,6 +64,8 @@ class _TvPage extends State<TvPage> {
       listTitle: "Popular",
       itemsStream: _tvBloc.popularTvs,
       onItemClicked: (ItemType item) => _onClick((item as Tv)),
+      onMoreClicked: (List<ItemType> items) =>
+          showMorePage(items, ShowMoreState.popularTvs),
     ));
     list.add(Container(
       height: 20,
@@ -69,8 +74,14 @@ class _TvPage extends State<TvPage> {
       listTitle: "Top Rated",
       itemsStream: _tvBloc.topRatedTvs,
       onItemClicked: (ItemType item) => _onClick((item as Tv)),
+      onMoreClicked: (List<ItemType> items) =>
+          showMorePage(items, ShowMoreState.topRatedTvs),
     ));
     return list;
+  }
+
+  void showMorePage(List<ItemType> items, state) {
+    return AppNavigator.showMorePage(context, state, items);
   }
 
   _onClick(Tv tv) {

@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tmdbflutter/bloc/search/search_bloc.dart';
+import 'package:tmdbflutter/models/item_type.dart';
 import 'package:tmdbflutter/models/movie.dart';
 import 'package:tmdbflutter/models/tv.dart';
 import 'package:tmdbflutter/ui/details/details_page.dart';
 import 'package:tmdbflutter/ui/search/search_page.dart';
+import 'package:tmdbflutter/ui/show_more/show_more_bloc.dart';
+import 'package:tmdbflutter/ui/show_more/show_more_page.dart';
 
 enum NavAction { movies, tvs }
 
@@ -35,9 +38,24 @@ class AppNavigator {
 //    Navigator.pushNamed(context, "/details_page", arguments: movie);
   }
 
+  static void showMorePage(
+      BuildContext context, ShowMoreState state, List<ItemType> items) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => ShowMorePage(
+          state: state,
+          items: items,
+        ),
+      ),
+    );
+//    Navigator.pushNamed(context, "/details_page", arguments: movie);
+  }
+
   static void pop(BuildContext context) {
     Navigator.pop(context);
   }
+
 //
   static goToSearch(BuildContext context, DetailsType type) {
     Navigator.push(
