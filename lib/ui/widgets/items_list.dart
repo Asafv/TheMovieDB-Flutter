@@ -9,11 +9,12 @@ class ItemsList extends StatelessWidget {
   final Function(ItemType) onItemClicked;
   final double itemWidth;
 
-  ItemsList(
-      {@required this.listTitle,
-      @required this.itemsStream,
-      @required this.onItemClicked,
-      this.itemWidth = 140});
+  ItemsList({
+    @required this.listTitle,
+    @required this.itemsStream,
+    @required this.onItemClicked,
+    this.itemWidth = 155,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -47,16 +48,17 @@ class ItemsList extends StatelessWidget {
             builder: (context, snapshot) {
               print("loading movies.. ${snapshot.data}");
               return Container(
-                height: 240,
+                height: 260,
                 child: ListView.builder(
                     itemCount: snapshot.data.length,
                     scrollDirection: Axis.horizontal,
                     shrinkWrap: true,
                     itemBuilder: (context, index) {
                       return ListItem(
-                          item: snapshot.data[index],
-                          itemWidth: this.itemWidth,
-                          onClick: this.onItemClicked);
+                        item: snapshot.data[index],
+                        itemWidth: this.itemWidth,
+                        onClick: this.onItemClicked,
+                      );
                     }),
               );
             }),

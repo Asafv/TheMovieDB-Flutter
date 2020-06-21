@@ -58,7 +58,7 @@ class _SearchResultsState extends State<SearchResults> {
       shrinkWrap: true,
       children: List.generate(widget.items.length, (index) {
         return ListItem(
-          itemWidth: 140,
+          itemWidth: 160,
           item: widget.items[index],
           onClick: (item) {
             if (widget.items[index] is Movie) {

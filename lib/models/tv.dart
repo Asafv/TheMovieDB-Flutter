@@ -4,6 +4,7 @@ import 'package:tmdbflutter/models/genre.dart';
 import 'package:tmdbflutter/models/item_type.dart';
 import 'package:tmdbflutter/models/network.dart';
 import 'package:tmdbflutter/models/season.dart';
+import 'package:uuid/uuid.dart';
 
 class Tv implements ItemType {
   String backdropPath;
@@ -35,6 +36,7 @@ class Tv implements ItemType {
   int voteCount;
 
   String error;
+  String tag = Uuid().v4();
 
   Tv(
       {this.backdropPath,
@@ -184,5 +186,20 @@ class Tv implements ItemType {
   @override
   String toString() {
     return "Tv: $name, $posterPath";
+  }
+
+  @override
+  String getTag() {
+    return this.tag;
+  }
+
+  @override
+  String getTitle() {
+    return this.name;
+  }
+
+  @override
+  String getBackdropPoster() {
+    return TmdbApi().getImageUrl(this.backdropPath, size: ImageSizes.normal);
   }
 }

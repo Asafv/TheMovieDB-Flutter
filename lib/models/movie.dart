@@ -5,6 +5,7 @@ import 'package:tmdbflutter/models/item_type.dart';
 import 'package:tmdbflutter/models/network.dart';
 import 'package:tmdbflutter/models/production_country.dart';
 import 'package:tmdbflutter/models/spoken_language.dart';
+import 'package:uuid/uuid.dart';
 
 class Movie implements ItemType {
   bool adult;
@@ -34,6 +35,7 @@ class Movie implements ItemType {
   int voteCount;
 
   String error;
+  String tag = Uuid().v4();
 
   Movie(
       {this.adult,
@@ -163,5 +165,20 @@ class Movie implements ItemType {
   @override
   String toString() {
     return "Movie: $title, $posterPath";
+  }
+
+  @override
+  String getTag() {
+    return this.tag;
+  }
+
+  @override
+  String getTitle() {
+    return this.title;
+  }
+
+  @override
+  String getBackdropPoster() {
+    return TmdbApi().getImageUrl(this.backdropPath, size: ImageSizes.normal);
   }
 }

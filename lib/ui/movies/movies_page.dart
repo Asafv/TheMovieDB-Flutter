@@ -51,7 +51,7 @@ class _MoviesPage extends State<MoviesPage> {
       height: 20,
     ));
     list.add(ItemsList(
-//      itemWidth: itemWidth * 0.85,
+//      itemWidth: itemWidth * .75,
       listTitle: "Now Playing",
       itemsStream: _moviesBloc.nowPlayingMovies,
       onItemClicked: (ItemType item) => _onClick((item as Movie)),
