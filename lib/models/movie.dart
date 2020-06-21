@@ -1,3 +1,6 @@
+import 'dart:ui';
+
+import 'package:flutter/material.dart';
 import 'package:tmdbflutter/data/api/tmdb_api.dart';
 import 'package:tmdbflutter/models/collection.dart';
 import 'package:tmdbflutter/models/genre.dart';
@@ -180,5 +183,35 @@ class Movie implements ItemType {
   @override
   String getBackdropPoster() {
     return TmdbApi().getImageUrl(this.backdropPath, size: ImageSizes.normal);
+  }
+
+  @override
+  String getRating() {
+    return "${this.voteAverage}/10 (${this.voteCount})";
+  }
+
+  @override
+  Color getVoteColor() {
+    return this.voteAverage >= 6 ? Colors.lightGreen[900] : Colors.red;
+  }
+
+  @override
+  String getOverview() {
+    return this.overview;
+  }
+
+  @override
+  String getReleaseDate() {
+    return this.releaseDate;
+  }
+
+  @override
+  String getRuntime() {
+    return "${this.runtime} minutes";
+  }
+
+  @override
+  String getStatus() {
+    return this.status;
   }
 }

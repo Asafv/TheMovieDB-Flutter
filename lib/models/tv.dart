@@ -1,3 +1,6 @@
+import 'dart:ui';
+
+import 'package:flutter/material.dart';
 import 'package:tmdbflutter/data/api/tmdb_api.dart';
 import 'package:tmdbflutter/models/episode.dart';
 import 'package:tmdbflutter/models/genre.dart';
@@ -201,5 +204,39 @@ class Tv implements ItemType {
   @override
   String getBackdropPoster() {
     return TmdbApi().getImageUrl(this.backdropPath, size: ImageSizes.normal);
+  }
+
+  @override
+  String getOverview() {
+    return this.overview;
+  }
+
+  @override
+  String getRating() {
+    return "${this.voteAverage}/10 (${this.voteCount})";
+  }
+
+  @override
+  String getReleaseDate() {
+    return this.firstAirDate;
+  }
+
+  @override
+  String getRuntime() {
+    var sum = 0;
+    if (episodeRunTime != null && episodeRunTime.length > 1) {
+      sum = episodeRunTime?.reduce((a, b) => a + b) ?? 0;
+    }
+    return "$sum hours";
+  }
+
+  @override
+  String getStatus() {
+    return this.status;
+  }
+
+  @override
+  Color getVoteColor() {
+    return this.voteAverage >= 6 ? Colors.lightGreen[900] : Colors.red;
   }
 }
