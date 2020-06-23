@@ -55,7 +55,7 @@ class _TvPage extends State<TvPage> {
       itemsStream: _tvBloc.onTheAirTvs,
       onItemClicked: (ItemType item) => _onClick((item as Tv)),
       onMoreClicked: (List<ItemType> items) =>
-          showMorePage(items, ShowMoreState.onTheAirTvs),
+          showMorePage(items, ShowMoreTypes.onTheAirTvs),
     ));
     list.add(Container(
       height: 20,
@@ -65,7 +65,7 @@ class _TvPage extends State<TvPage> {
       itemsStream: _tvBloc.popularTvs,
       onItemClicked: (ItemType item) => _onClick((item as Tv)),
       onMoreClicked: (List<ItemType> items) =>
-          showMorePage(items, ShowMoreState.popularTvs),
+          showMorePage(items, ShowMoreTypes.popularTvs),
     ));
     list.add(Container(
       height: 20,
@@ -75,7 +75,7 @@ class _TvPage extends State<TvPage> {
       itemsStream: _tvBloc.topRatedTvs,
       onItemClicked: (ItemType item) => _onClick((item as Tv)),
       onMoreClicked: (List<ItemType> items) =>
-          showMorePage(items, ShowMoreState.topRatedTvs),
+          showMorePage(items, ShowMoreTypes.topRatedTvs),
     ));
     return list;
   }

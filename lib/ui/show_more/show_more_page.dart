@@ -6,7 +6,7 @@ import 'package:tmdbflutter/ui/show_more/show_more_bloc.dart';
 import 'package:tmdbflutter/ui/show_more/show_more_result_widget.dart';
 
 class ShowMorePage extends StatefulWidget {
-  final ShowMoreState state;
+  final ShowMoreTypes state;
   final List<ItemType> items;
 
   ShowMorePage({@required this.items, @required this.state});

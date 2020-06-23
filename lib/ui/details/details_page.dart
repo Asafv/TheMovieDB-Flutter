@@ -84,7 +84,7 @@ class _DetailsPage extends State<DetailsPage> {
         tag: getItem().getTag(),
         child: Container(
           child: CachedNetworkImage(
-            imageUrl: getItem().getPosterUrl(ImageSizes.normal),
+            imageUrl: getItem().getPosterUrl(ImageSizes.small),
             fit: BoxFit.fitWidth,
             height: _imageHeight * 0.7,
             placeholder: (context, url) => Container(

@@ -4,7 +4,7 @@ import 'package:tmdbflutter/bloc.dart';
 import 'package:tmdbflutter/data/tmdb_repository.dart';
 import 'package:tmdbflutter/models/item_type.dart';
 
-enum ShowMoreState {
+enum ShowMoreTypes {
   onTheAirTvs,
   topRatedTvs,
   popularTvs,
@@ -17,7 +17,7 @@ enum ShowMoreState {
 class ShowMoreBloc extends Bloc {
   final TmdbRepository _repo = TmdbRepository();
 
-  ShowMoreState state;
+  ShowMoreTypes type;
 
   final _itemsSubject = BehaviorSubject<List<ItemType>>();
   Stream<List<ItemType>> get itemsStream => _itemsSubject.stream;
@@ -26,7 +26,7 @@ class ShowMoreBloc extends Bloc {
   int totalPages = 0;
   List<ItemType> items = List();
 
-  ShowMoreBloc(this.state) {
+  ShowMoreBloc(this.type) {
     fetchMore();
   }
 
@@ -36,8 +36,8 @@ class ShowMoreBloc extends Bloc {
   }
 
   void fetchMore({bool isBottomReached = false}) async {
-    switch (state) {
-      case ShowMoreState.onTheAirTvs:
+    switch (type) {
+      case ShowMoreTypes.onTheAirTvs:
         var tv =
             await _repo.getTvOnTheAir(page: isBottomReached ? page + 1 : page);
         Fimber.d("OnTheAir: ${tv.results}");
@@ -45,7 +45,7 @@ class ShowMoreBloc extends Bloc {
           _updatePageAndItems(tv.page, tv.results);
         }
         break;
-      case ShowMoreState.topRatedTvs:
+      case ShowMoreTypes.topRatedTvs:
         var tv =
             await _repo.getTvTopRated(page: isBottomReached ? page + 1 : page);
         Fimber.d("topRated: ${tv.results}");
@@ -53,7 +53,7 @@ class ShowMoreBloc extends Bloc {
           _updatePageAndItems(tv.page, tv.results);
         }
         break;
-      case ShowMoreState.popularTvs:
+      case ShowMoreTypes.popularTvs:
         var tv =
             await _repo.getTvPopular(page: isBottomReached ? page + 1 : page);
         Fimber.d("popular: ${tv.results}");
@@ -61,7 +61,7 @@ class ShowMoreBloc extends Bloc {
           _updatePageAndItems(tv.page, tv.results);
         }
         break;
-      case ShowMoreState.nowPlayingMovies:
+      case ShowMoreTypes.nowPlayingMovies:
         var m = await _repo.getMoviesNowPlaying(
             page: isBottomReached ? page + 1 : page);
         Fimber.d("nowPlaying: ${m.results.length}");
@@ -69,7 +69,7 @@ class ShowMoreBloc extends Bloc {
           _updatePageAndItems(m.page, m.results);
         }
         break;
-      case ShowMoreState.topRatedMovies:
+      case ShowMoreTypes.topRatedMovies:
         var m = await _repo.getMoviesTopRated(
             page: isBottomReached ? page + 1 : page);
         Fimber.d("topRated: ${m.results.length}");
@@ -77,7 +77,7 @@ class ShowMoreBloc extends Bloc {
           _updatePageAndItems(m.page, m.results);
         }
         break;
-      case ShowMoreState.popularMovies:
+      case ShowMoreTypes.popularMovies:
         var m = await _repo.getMoviesPopular(
             page: isBottomReached ? page + 1 : page);
         Fimber.d("popular: ${m.results.length}");
@@ -85,7 +85,7 @@ class ShowMoreBloc extends Bloc {
           _updatePageAndItems(m.page, m.results);
         }
         break;
-      case ShowMoreState.upcomingMovies:
+      case ShowMoreTypes.upcomingMovies:
         var m = await _repo.getMoviesUpcoming(
             page: isBottomReached ? page + 1 : page);
         Fimber.d("upcoming: ${m.results.length}");
@@ -105,20 +105,20 @@ class ShowMoreBloc extends Bloc {
   }
 
   String getTitle() {
-    switch (state) {
-      case ShowMoreState.onTheAirTvs:
+    switch (type) {
+      case ShowMoreTypes.onTheAirTvs:
         return "On The Air Tv Shows";
-      case ShowMoreState.topRatedTvs:
+      case ShowMoreTypes.topRatedTvs:
         return "Top Rated Tv Shows";
-      case ShowMoreState.popularTvs:
+      case ShowMoreTypes.popularTvs:
         return "Popular Tv Shows";
-      case ShowMoreState.nowPlayingMovies:
+      case ShowMoreTypes.nowPlayingMovies:
         return "Now Playing Movies";
-      case ShowMoreState.topRatedMovies:
+      case ShowMoreTypes.topRatedMovies:
         return "Top Rated Movies";
-      case ShowMoreState.popularMovies:
+      case ShowMoreTypes.popularMovies:
         return "Popular Movies";
-      case ShowMoreState.upcomingMovies:
+      case ShowMoreTypes.upcomingMovies:
         return "Upcoming Movies";
     }
     return "";

@@ -20,7 +20,6 @@ class SearchResults extends StatefulWidget {
 
 class _SearchResultsState extends State<SearchResults> {
   ScrollController _controller = ScrollController();
-
   SearchBloc _searchBloc;
 
   _scrollListener() {
@@ -38,8 +37,14 @@ class _SearchResultsState extends State<SearchResults> {
   @override
   void initState() {
     super.initState();
-    _searchBloc = BlocProvider.of<SearchBloc>(context);
     _controller.addListener(_scrollListener);
+  }
+
+  @override
+  void didChangeDependencies() {
+    Fimber.d("didChangeDependencies");
+    _searchBloc = BlocProvider.of<SearchBloc>(context);
+    super.didChangeDependencies();
   }
 
   @override

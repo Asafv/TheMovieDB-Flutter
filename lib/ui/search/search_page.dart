@@ -1,3 +1,4 @@
+import 'package:fimber/fimber.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rxdart/rxdart.dart';
@@ -25,6 +26,7 @@ class _SearchPageState extends State<SearchPage> {
 
   @override
   void didChangeDependencies() {
+    Fimber.d("didChangeDependencies");
     super.didChangeDependencies();
     _searchBloc = BlocProvider.of<SearchBloc>(context);
 

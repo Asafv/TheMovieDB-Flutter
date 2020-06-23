@@ -57,7 +57,7 @@ class _MoviesPage extends State<MoviesPage> {
       itemsStream: _moviesBloc.nowPlayingMovies,
       onItemClicked: (ItemType item) => _onClick((item as Movie)),
       onMoreClicked: (List<ItemType> items) =>
-          showMorePage(items, ShowMoreState.nowPlayingMovies),
+          showMorePage(items, ShowMoreTypes.nowPlayingMovies),
     ));
     list.add(Container(
       height: 20,
@@ -67,7 +67,7 @@ class _MoviesPage extends State<MoviesPage> {
       itemsStream: _moviesBloc.popularMovies,
       onItemClicked: (ItemType item) => _onClick((item as Movie)),
       onMoreClicked: (List<ItemType> items) =>
-          showMorePage(items, ShowMoreState.popularMovies),
+          showMorePage(items, ShowMoreTypes.popularMovies),
     ));
     list.add(Container(
       height: 20,
@@ -77,7 +77,7 @@ class _MoviesPage extends State<MoviesPage> {
       itemsStream: _moviesBloc.upcomingMovies,
       onItemClicked: (ItemType item) => _onClick((item as Movie)),
       onMoreClicked: (List<ItemType> items) =>
-          showMorePage(items, ShowMoreState.upcomingMovies),
+          showMorePage(items, ShowMoreTypes.upcomingMovies),
     ));
     list.add(Container(
       height: 20,
@@ -87,7 +87,7 @@ class _MoviesPage extends State<MoviesPage> {
       itemsStream: _moviesBloc.topRatedMovies,
       onItemClicked: (ItemType item) => _onClick((item as Movie)),
       onMoreClicked: (List<ItemType> items) =>
-          showMorePage(items, ShowMoreState.topRatedMovies),
+          showMorePage(items, ShowMoreTypes.topRatedMovies),
     ));
     return list;
   }

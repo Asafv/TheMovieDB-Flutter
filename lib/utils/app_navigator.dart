@@ -39,7 +39,7 @@ class AppNavigator {
   }
 
   static void showMorePage(
-      BuildContext context, ShowMoreState state, List<ItemType> items) {
+      BuildContext context, ShowMoreTypes state, List<ItemType> items) {
     Navigator.push(
       context,
       MaterialPageRoute(

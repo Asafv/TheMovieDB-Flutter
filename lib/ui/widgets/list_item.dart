@@ -21,6 +21,7 @@ class ListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
+      key: key,
       child: InkWell(
         customBorder:
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
@@ -41,7 +42,7 @@ class ListItem extends StatelessWidget {
                     child: Hero(
                       tag: item.getTag(),
                       child: CachedNetworkImage(
-                        imageUrl: item.getPosterUrl(ImageSizes.normal),
+                        imageUrl: item.getPosterUrl(ImageSizes.small),
                         fit: BoxFit.fill,
                         width: itemWidth,
                         placeholder: (context, url) => Container(
